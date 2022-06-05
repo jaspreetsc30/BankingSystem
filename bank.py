@@ -111,6 +111,7 @@ class Bank:
             Bank.accounts[BANK_ID][currency] += fee
             currTime = datetime.now().replace(microsecond=0)
             self.__addTransaction(currTime,currency,f"TRANSFER to {recipient}",-amt)
+            self.__addTransaction(currTime,currency,f"TRANSFER FEE  ",-fee)
             self.__addTransaction(currTime,currency,f"TRANSFER FROM {self.__id}",amt, recipient)
             self.__addTransaction(currTime,currency,f"TRANSFER FEE FROM {self.__id}",fee, BANK_ID)
             self.__saveChanges()
@@ -143,6 +144,7 @@ class Bank:
             
             currTime = datetime.now().replace(microsecond=0)
             self.__addTransaction(currTime,currency,"WITHDRAWAL",-amt)
+            self.__addTransaction(currTime,currency,f"WITHDRAWAL FEE  ",-fee)
             self.__addTransaction(currTime,currency,f"WITHDRAWAL FEE FROM {self.__id}",fee, BANK_ID)
             self.__saveChanges()
             print(f"{amt} {currency} has been withdrawn from your account")
